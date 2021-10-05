@@ -2,7 +2,6 @@ from collections import OrderedDict
 from player import Player
 import world
 
-# A test PR for GitHub
 
 def play():
     print("*** The mystery Of Henry Cort School ***")
