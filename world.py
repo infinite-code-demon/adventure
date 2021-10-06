@@ -12,10 +12,15 @@ class MapTile:
         self.y = y
         self.locked = False
         self.inventory = []
+        self.locked_directions_dict = {"N":False,"E":False,"S":False,"W":False}
+        self.locked_directions_text_dict = {"N":"","E":"","S":"","W":""}
+        self.locked_directions_keyname_dict = {"N":"","E":"","S":"","W":""}
+        
+        
     
     # if you want to make a map tile locked then set this True
-    def set_lock(self, state):
-        self.locked = state
+    #def set_lock(self, state):
+    #    self.locked = state
     
     # return the state of the room - its unlocked if the player has the item required.
     def get_lock(self, player):
@@ -34,7 +39,40 @@ class MapTile:
                 return self.locked
             count = count + 1
         return self.locked
-         
+
+    # a list of directions that are locked - eg. "n" "s" etc
+    def add_locked_direction(self,direction):
+        self.locked_directions.append(direction)
+
+    def set_locked_direction(self,direction,desc,keyname):
+        # direction N,S,E or W
+        self.locked_directions_dict[direction] = True
+        # desc is the text that describes the locked door 
+        self.locked_directions_text_dict[direction] = desc
+        # keyname is the name of the object that unlocks that direction
+        self.locked_directions_keyname_dict[direction] = keyname
+        #print(self.locked_directions_dict)
+        #print(self.locked_directions_text_dict)
+        
+    def get_locked_direction(self,direction):
+        if self.locked_directions_dict[direction] == True:
+            return True
+        else:
+            return False
+
+    def get_locked_direction_desc(self,direction):
+        if self.locked_directions_dict[direction] == True:
+            return self.locked_directions_text_dict[direction]
+        else:
+            return None
+
+
+    # once a direction has been unlocked it doesnt have to opened again
+    def remove_locked_direction(self,direction):
+        self.locked_directions_dict[direction] = False
+        self.locked_directions_text_dict[direction] = None
+            
+        
     def add_item(self,an_item):
         self.inventory.append(an_item)
     
@@ -223,6 +261,20 @@ class HedgeTile(MapTile):
         Nothing here apart from a hedge.
         """
 
+
+class TestTile(MapTile):
+    def __init__(self, x, y):
+        super().__init__(x, y)
+        super().set_locked_direction("N","That way is locked, perhaprs an IDCard would unlock the door?","IDCard")
+        super().set_locked_direction("E","That was is locked, try bashing it with a Rock","Rock")
+        
+    def intro_text(self):
+        return """
+        Test tile to check for lock
+        """
+
+
+    
 class SchoolEntranceTile(MapTile):
     def __init__(self, x, y):
         super().__init__(x, y)
@@ -299,7 +351,7 @@ world_dsl = """
 |EN|FG|KT|  |TT|
 |TT|RT|SE|FG|EN|
 |CP|CP|ST|CP|CP|
-|CP|HG|CT|HG|CP|
+|CP|HG|XX|HG|CP|
 |CP|  |CP|  |CP|
 """
 
@@ -328,6 +380,7 @@ tile_type_dict = {"VT": VictoryTile,
                   "CP": CarParkTile,
                   "CT": CarTile,
                   "TT": CarParkTieTile,
+                  "XX": TestTile,
                   "HG": HedgeTile,
                   "SE": SchoolEntranceTile,
                   "  ": None}

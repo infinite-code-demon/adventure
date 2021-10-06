@@ -11,14 +11,21 @@ class Player:
                           items.CrustyBread()]
         self.x = world.start_tile_location[0]
         self.y = world.start_tile_location[1]
-        self.hp = 100
+        self.hp = 24
         self.gold = 5
         self.score = 0
         self.victory = False
 
     def is_alive(self):
         return self.hp > 0
-
+    
+    def is_hungry(self):
+        if self.hp > 0 and self.hp < 20 :
+            return True
+        else:
+            return False
+        
+    
     def print_inventory(self):
         print("Inventory:")
         for item in self.inventory:
@@ -64,6 +71,8 @@ class Player:
     def move(self, dx, dy):
         self.x += dx
         self.y += dy
+        # reduce the players health every time they move
+        self.hp = self.hp - 5
 
     def move_north(self):
         self.move(dx=0, dy=-1)
@@ -96,6 +105,7 @@ class Player:
         count = 0
         for x in range(0,len(self.inventory)):       
             name = self.inventory[count].name
+            #print(name)
             if name == name_of_item:
                 the_dropped_item = self.inventory[count]
                 del self.inventory[count]

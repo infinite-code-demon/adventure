@@ -42,7 +42,7 @@ class Consumable:
 
 class CrustyBread(Consumable):
     def __init__(self):
-        self.name = "Crusty Bread"
+        self.name = "Bread"
         self.healing_value = 10
         self.value = 12
 
