@@ -11,7 +11,7 @@ class Player:
                           items.CrustyBread()]
         self.x = world.start_tile_location[0]
         self.y = world.start_tile_location[1]
-        self.hp = 24
+        self.hp = 200
         self.gold = 5
         self.score = 0
         self.victory = False

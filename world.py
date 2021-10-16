@@ -15,6 +15,7 @@ class MapTile:
         self.locked_directions_dict = {"N":False,"E":False,"S":False,"W":False}
         self.locked_directions_text_dict = {"N":"","E":"","S":"","W":""}
         self.locked_directions_keyname_dict = {"N":"","E":"","S":"","W":""}
+        self.locked_directions_name_dict = {"N":"","E":"","S":"","W":""}
         
         
     
@@ -44,13 +45,15 @@ class MapTile:
     def add_locked_direction(self,direction):
         self.locked_directions.append(direction)
 
-    def set_locked_direction(self,direction,desc,keyname):
+    def set_locked_direction(self,direction,desc,name,keyname):
         # direction N,S,E or W
         self.locked_directions_dict[direction] = True
         # desc is the text that describes the locked door 
         self.locked_directions_text_dict[direction] = desc
         # keyname is the name of the object that unlocks that direction
         self.locked_directions_keyname_dict[direction] = keyname
+        # name is the item name of the locked - eg door or window
+        self.locked_directions_name_dict[direction] = name
         #print(self.locked_directions_dict)
         #print(self.locked_directions_text_dict)
         
@@ -67,11 +70,29 @@ class MapTile:
             return None
 
 
-    # once a direction has been unlocked it doesnt have to opened again
+    # once a direction has been unlocked it doesnt have to be opened again
     def remove_locked_direction(self,direction):
         self.locked_directions_dict[direction] = False
         self.locked_directions_text_dict[direction] = None
-            
+        self.locked_directions_name_dict[direction] = None
+        self.locked_directions_keyname_dict[direction] = None   
+        
+        
+    def unlock_direction(self,direction,key,name):
+        # first see if the player is using the correct key
+        if key == self.locked_directions_keyname_dict[direction]:
+            if name == self.locked_directions_name_dict[direction]:
+                # unlocked ok
+                remove_locked_direction(direction)
+                print(name, " unlocked OK")
+                return True
+            else:
+                print(name, " cannot be unlocked")
+                return False
+        else:
+            print(key," is not the right key to unlock ",name)
+            return False
+        
         
     def add_item(self,an_item):
         self.inventory.append(an_item)
@@ -265,8 +286,8 @@ class HedgeTile(MapTile):
 class TestTile(MapTile):
     def __init__(self, x, y):
         super().__init__(x, y)
-        super().set_locked_direction("N","That way is locked, perhaprs an IDCard would unlock the door?","IDCard")
-        super().set_locked_direction("E","That was is locked, try bashing it with a Rock","Rock")
+        super().set_locked_direction("N","That way is locked, perhaprs an IDCard would unlock the door?","Door","IDCard")
+        super().set_locked_direction("E","That was is locked, try bashing it with a Rock","Window","Rock")
         
     def intro_text(self):
         return """
