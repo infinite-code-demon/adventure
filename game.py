@@ -10,6 +10,16 @@ def play():
     while player.is_alive() and not player.victory:
         room = world.tile_at(player.x, player.y)
         print(room.intro_text())
+        print("")
+        print("You can go the following directions:")
+        if world.tile_at(room.x, room.y - 1):
+            print("  North")
+        if world.tile_at(room.x, room.y + 1):
+            print("  South")
+        if world.tile_at(room.x + 1, room.y):
+            print("  East")
+        if world.tile_at(room.x - 1, room.y):
+            print("  West")
         room.display_room_items()
         room.modify_player(player)
         if player.is_alive() and not player.victory:
