@@ -25,7 +25,6 @@
     <Compile Include="enemies.py" />
     <Compile Include="game.py" />
     <Compile Include="items.py" />
-    <Compile Include="module1.py" />
     <Compile Include="npc.py" />
     <Compile Include="player.py" />
     <Compile Include="world.py" />
