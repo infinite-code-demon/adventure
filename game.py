@@ -5,6 +5,7 @@ import world
 
 def play():
     print("*** The mystery Of Henry Cort School ***")
+    print("Instructions on how to play the adventure gam")
     world.parse_world_dsl()
     player = Player()
     while player.is_alive() and not player.victory:
