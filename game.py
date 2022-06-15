@@ -6,6 +6,8 @@ import world
 def play():
     print("*** The mystery Of Henry Cort School ***")
     print("Instructions on how to play the adventure game")
+    display_help()
+
     world.parse_world_dsl()
     player = Player()
     while player.is_alive() and not player.victory:
@@ -30,6 +32,20 @@ def play():
         elif not player.is_alive():
             print("Your journey has come to an early end!")
 
+def display_help():    
+    print("Instructions on how to play the adventure game")
+    print("If you need help enter 'help' or 'h'")
+    print("Move around the map using commands 'go north','go south'")
+    print("To list what you are carrying enter 'inventory' or 'i'")
+    print("To pick an object up enter 'take object'")
+    print("Command list")
+    print("take")
+    print("drop")
+    print("go north")
+    print("go south")
+    print("go east")
+    print("go west")
+    print("describe or desc")
 
 def choose_action(room, player):
     action = None
@@ -46,7 +62,9 @@ def choose_action(room, player):
                 print(room.intro_text())
                 room.display_room_items()
             if verb == "help" or verb == "h":
+                display_help()
                 player.display_stats()
+
         # two word commands        
         if number == 2:
             verb = parts[0]

@@ -373,7 +373,7 @@ world_dsl = """
 |TT|RT|SE|FG|EN|
 |CP|CP|ST|CP|CP|
 |CP|HG|XX|HG|CP|
-|CP|  |CP|  |CP|
+|CP|  |CP|TT|CP|
 """
 
 

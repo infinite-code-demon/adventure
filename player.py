@@ -106,7 +106,7 @@ class Player:
         for x in range(0,len(self.inventory)):       
             name = self.inventory[count].name
             #print(name)
-            if name == name_of_item:
+            if name.casefold() == name_of_item.casefold():
                 the_dropped_item = self.inventory[count]
                 del self.inventory[count]
                 print("Dropped : ", name )
@@ -120,13 +120,10 @@ class Player:
         room = world.tile_at(self.x, self.y)
         for x in range(0,len(room.inventory)):       
             name = room.inventory[count].name
-            if name == name_of_item:
+            if name.casefold() == name_of_item.casefold():
                 the_taken_item = room.inventory[count]
                 del room.inventory[count]
-                #room.remove_item(
                 print("Taken : ", name )
-                #room = world.tile_at(self.x, self.y)
-                #room.add_item(the_dropped_item)
                 self.inventory.append(the_taken_item)
                 return
             count = count + 1        
