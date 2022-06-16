@@ -58,6 +58,10 @@ class MapTile:
         #print(self.locked_directions_text_dict)
         
     def get_locked_direction(self,direction):
+        # to make things easier, check if the player is carrying the item that can unlock
+        # the direction they want to go in, if they have it then unlock automatically
+        # call the "get_lock" function to go thru the players inventory and see if it 
+        # matches the locked direction, if it does then unlock
         if self.locked_directions_dict[direction] == True:
             return True
         else:
@@ -93,6 +97,8 @@ class MapTile:
             print(key," is not the right key to unlock ",name)
             return False
         
+    def unlock(self, item_to_use):
+        return
         
     def add_item(self,an_item):
         self.inventory.append(an_item)

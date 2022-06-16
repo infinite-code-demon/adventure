@@ -128,6 +128,22 @@ class Player:
                 return
             count = count + 1        
 
+    def use(self, name_of_item):
+        count = 0
+        for x in range(0,len(self.inventory)):       
+            name = self.inventory[count].name
+            #print(name)
+            if name.casefold() == name_of_item.casefold():
+                #the_dropped_item = self.inventory[count]
+                #del self.inventory[count]
+                print("Used : ", name )
+                room = world.tile_at(self.x, self.y)
+                room.unlock(name_of_item)
+                return
+            count = count + 1
+
+        print("You cant use something you dont have!")
+
     def display_stats(self):
         print("\nYou health is : ", self.hp )
         print("\nYou score is : ", self.score )

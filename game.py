@@ -123,13 +123,14 @@ def choose_action(room, player):
             if verb == "use":
                 player.use(noun)
                 return
-        if number == 4:
-            verb = parts[0]
-            noun = parts[1]
-            verb2 = parts[2]
-            noun2 = parts[3]
-            if verb == "unlock":          
-                return
+        # I havent got time to add this, just use two word commands for now.
+        #if number == 4:
+        #    verb = parts[0]
+        #    noun = parts[1]
+        #    verb2 = parts[2]
+        #    noun2 = parts[3]
+        #    if verb == "unlock":          
+        #        return
 
 
 def search(list, listofitems):
